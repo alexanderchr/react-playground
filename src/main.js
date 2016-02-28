@@ -8,16 +8,27 @@ import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 
+// react-router(-redux)
+import { IndexRoute, Router, Route, browserHistory } from 'react-router'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+
 // app
-import reducers from './reducers'
 import App from './components/app'
- 
+
 const finalCreateStore = applyMiddleware(
   thunkMiddleware,
   createLogger()
 )(createStore)
 
-const store = finalCreateStore(reducers)
+const store = finalCreateStore(require('./reducers').default)
+const history = syncHistoryWithStore(browserHistory, store)
+
+if (module.hot) {
+  module.hot.accept('./reducers', () => {
+    const nextReducer = require('./reducers').default;
+    store.replaceReducer(nextReducer);
+  });
+}
 
 var mount = document.getElementById('mount')
 ReactDOM.render((
@@ -25,4 +36,3 @@ ReactDOM.render((
     <App />
   </Provider>
 ), mount)
-
