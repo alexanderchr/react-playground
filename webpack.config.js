@@ -17,7 +17,10 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.scss$/, loaders: ['style', 'css?modules&sourceMap', 'sass?sourceMap'] },
+      { test: /\.scss$/, include: './src',loaders: ['style', 'css?modules&sourceMap', 'sass?sourceMap'] },
+      { test: /\.scss$/, exclude: './src', loaders: ['style', 'css?sourceMap', 'sass?sourceMap'] },
+      { test: /\.css$/, include: './src', loaders: ['style', 'css?modules&sourceMap'] },
+      { test: /\.css$/, exclude: './src', loaders: ['style', 'css'] },
       { test: /\.(eot|woff|woff2|ttf|svg|)$/, loader: 'url-loader' }
     ]
   },
