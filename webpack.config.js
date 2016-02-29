@@ -22,7 +22,7 @@ module.exports = {
     ]
   },
   sassLoader: {
-    includePaths: [...bourbon.includePaths, ...bourbonNeat.includePaths]
+    includePaths: [...bourbon.includePaths, ...bourbonNeat.includePaths, './vendor']
   },
   plugins: [
     new Webpack.HotModuleReplacementPlugin(),
