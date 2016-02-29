@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.0",
+    "immutable": "^3.7.6",
     "node-bourbon": "^4.2.3",
     "node-neat": "^1.7.2",
     "react": "^0.14.2",
