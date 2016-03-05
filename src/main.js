@@ -33,6 +33,10 @@ if (module.hot) {
 var mount = document.getElementById('mount')
 ReactDOM.render((
   <Provider store={store}>
-    <App />
+    <Router history={history}>
+      <Route path='/' component={App}>
+        <IndexRoute component={Something} />
+      </Route>
+    </Router>
   </Provider>
 ), mount)
