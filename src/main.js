@@ -20,12 +20,12 @@ const finalCreateStore = applyMiddleware(
   createLogger()
 )(createStore)
 
-const store = finalCreateStore(require('./reducers').default)
+const store = finalCreateStore(require('./ducks').default)
 const history = syncHistoryWithStore(browserHistory, store)
 
 if (module.hot) {
-  module.hot.accept('./reducers', () => {
-    const nextReducer = require('./reducers').default;
+  module.hot.accept('./ducks', () => {
+    const nextReducer = require('./ducks').default;
     store.replaceReducer(nextReducer);
   });
 }
@@ -34,9 +34,7 @@ var mount = document.getElementById('mount')
 ReactDOM.render((
   <Provider store={store}>
     <Router history={history}>
-      <Route path='/' component={App}>
-        <IndexRoute component={Something} />
-      </Route>
+      <Route path='/' component={App} />
     </Router>
   </Provider>
 ), mount)
