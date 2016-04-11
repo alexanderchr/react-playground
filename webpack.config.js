@@ -6,7 +6,7 @@ var bourbon = require('node-bourbon')
 var bourbonNeat = require('node-neat')
 
 module.exports = {
-  entry: ['./src/main.js'],
+  entry: ['babel-polyfill', './src/main.js'],
   output: {
     filename: 'bundle.js',
     path: '/',
