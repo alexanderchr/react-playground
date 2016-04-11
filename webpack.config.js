@@ -15,9 +15,6 @@ module.exports = {
     filename: 'bundle.js',
     path: '/',
   },
-  resolve: {
-    modulesDirectories: ['node_modules']
-  },
   devtool: 'sourcemap',
   module: {
     loaders: [
