@@ -23,13 +23,6 @@ const finalCreateStore = applyMiddleware(
 const store = finalCreateStore(require('./ducks').default)
 const history = syncHistoryWithStore(browserHistory, store)
 
-if (module.hot) {
-  module.hot.accept('./ducks', () => {
-    const nextReducer = require('./ducks').default;
-    store.replaceReducer(nextReducer);
-  });
-}
-
 var mount = document.getElementById('mount')
 ReactDOM.render((
   <Provider store={store}>
