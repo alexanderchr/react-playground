@@ -8,8 +8,6 @@ var bourbonNeat = require('node-neat')
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8000',
-    'webpack/hot/only-dev-server',
     'babel-polyfill',
     './src/main'
   ],
@@ -39,7 +37,6 @@ module.exports = {
     includePaths: [...bourbon.includePaths, ...bourbonNeat.includePaths, './vendor']
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlPlugin({
       template: 'src/index.html',
       inject: 'body'
