@@ -32,8 +32,6 @@
     "webpack-dev-server": "^1.9.0"
   },
   "dependencies": {
-    "babel-plugin-syntax-async-generators": "^6.5.0",
-    "babel-plugin-transform-regenerator": "^6.6.5",
     "classnames": "^2.2.0",
     "deepstream.io-client-js": "^0.4.2",
     "immutable": "^3.7.6",

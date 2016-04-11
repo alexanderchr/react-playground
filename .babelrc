@@ -1,8 +1,6 @@
 {
   "presets": ["es2015", "stage-0", "react"],
   "plugins": [
-    "syntax-async-generators",
-    "transform-regenerator",
     "transform-decorators-legacy",
     [
       "react-transform",
