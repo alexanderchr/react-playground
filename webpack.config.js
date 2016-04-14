@@ -27,7 +27,7 @@ module.exports = {
       { test: /\.scss$/, exclude: './src', exclude: prependRoot('src'), loaders: ['style', 'css?sourceMap', 'sass?sourceMap'] },
       { test: /\.css$/, include: './src', loaders: ['style', 'css?modules&sourceMap'] },
       { test: /\.css$/, exclude: './src', loaders: ['style', 'css'] },
-      { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9]*)?$/, loader: 'url-loader' }
+      { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9\.\=]*)?$/, loader: 'url-loader' }
     ]
   },
   sassLoader: {
