@@ -1,23 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
-// import moment from 'moment'
+// @flow
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import { Router } from 'react-router'
 
+import routes from 'client/routes'
 import styles from './app.scss'
-// import 'font-awesome/css/font-awesome.css'
+// import 'font-awesome/css/font-awesome.css
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
-    return (
-      <div className={styles.app}>
-        <div>
-          <h1>Hello world</h1>
-        </div>
+    const { store, history } = this.props
 
+    return (
+      <Provider store={store}>
         <div>
-          {this.props.children}
+          <p>sd</p>
+          <Router history={history} routes={routes} />
         </div>
-      </div>
+      </Provider>
     )
   }
 }
