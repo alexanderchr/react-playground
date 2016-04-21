@@ -13,21 +13,26 @@ module.exports = {
   ],
   output: {
     filename: 'bundle.js',
-    path: '/',
+    path: prependRoot('dist')
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    modules: ['node_modules', prependRoot('src')],
   },
   devtool: 'sourcemap',
   module: {
     loaders: [
       {
         test: /\.(js|jsx)$/,
-        loaders: ['react-hot', 'babel-loader'],
-        include: prependRoot('src')
+        loader: 'babel-loader',
+        include: prependRoot('src'),
+        exclude: [/node_modules/],
       },
       { test: /\.scss$/, include: prependRoot('src'), loaders: ['style', 'css?modules&sourceMap', 'sass?sourceMap'] },
       { test: /\.scss$/, exclude: prependRoot('src'), loaders: ['style', 'css?sourceMap', 'sass?sourceMap'] },
       { test: /\.css$/, include: prependRoot('src'), loaders: ['style', 'css?modules&sourceMap'] },
-      { test: /\.css$/, exclude: prependRoot('src'), loaders: ['style', 'css'] },
-      { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9\.\=]*)?$/, loader: 'url-loader' }
+      { test: /\.css$/, exclude: prependRoot('src'), loaders: ['style', 'css?sourceMap'] },
+      { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9\.\=]*)?$/, loader: 'url-loader' },
     ]
   },
   sassLoader: {
@@ -35,7 +40,7 @@ module.exports = {
   },
   plugins: [
     new HtmlPlugin({
-      template: 'src/index.html',
+      template: 'src/client/index.html',
       inject: 'body'
     })
   ]
