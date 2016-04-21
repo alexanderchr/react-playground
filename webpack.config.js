@@ -10,9 +10,8 @@ module.exports = {
   entry: [
     'babel-polyfill',
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:8000',
-    'webpack/hot/only-dev-server',
-    'client',
+    'webpack-hot-middleware/client',
+    'client'
   ],
   output: {
     filename: 'bundle.js',
@@ -22,7 +21,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     modules: ['node_modules', prependRoot('src')],
   },
-  devtool: 'sourcemap',
+  devtool: 'eval',
   module: {
     loaders: [
       {
