@@ -5,15 +5,15 @@ import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { AppContainer } from 'react-hot-loader'
 
-import configureStore from 'client/redux/configureStore'
+import configureStore from 'universal/redux/configureStore'
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
 
 var mount = document.getElementById('mount')
 
-renderApp = () => {
-  const App = require('client/components/app/app').default
+function renderApp() {
+  const App = require('universal/components/app/app').default
   return <App store={store} history={history} />
 }
 
@@ -22,7 +22,7 @@ ReactDOM.render((
 ), mount)
 
 if (module.hot) {
-  module.hot.accept('client/components/app/app', () => {
+  module.hot.accept('universal/components/app/app', () => {
     ReactDOM.render((
       <AppContainer component={renderApp} />
     ), mount)

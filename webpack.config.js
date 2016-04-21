@@ -42,7 +42,7 @@ module.exports = {
   },
   plugins: [
     new HtmlPlugin({
-      template: 'src/client/index.html',
+      template: 'src/server/index.html',
       inject: 'body'
     }),
     new webpack.HotModuleReplacementPlugin()
