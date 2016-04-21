@@ -9,6 +9,9 @@ var bourbonNeat = require('node-neat')
 module.exports = {
   entry: [
     'babel-polyfill',
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8000',
+    'webpack/hot/only-dev-server',
     'client',
   ],
   output: {
@@ -42,7 +45,8 @@ module.exports = {
     new HtmlPlugin({
       template: 'src/client/index.html',
       inject: 'body'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }
 

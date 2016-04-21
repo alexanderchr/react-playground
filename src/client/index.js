@@ -32,4 +32,11 @@ ReactDOM.render((
   <AppContainer component={App} />
 ), mount)
 
+if (module.hot) {
+  module.hot.accept('./components/app/app', () => {
+    ReactDOM.render((
+      <AppContainer component={require('./components/app/app').default} />
+    ), mount)
+  })
+}
 
