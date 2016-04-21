@@ -1,6 +1,9 @@
+// @flow
+
 // react
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
 
 // redux
 import { compose, createStore, applyMiddleware } from 'redux'
@@ -9,25 +12,24 @@ import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 
 // react-router(-redux)
-import { IndexRoute, Router, Route, browserHistory } from 'react-router'
+import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 // app
-import App from './components/app'
+import App from './components/app/app'
 
 const finalCreateStore = applyMiddleware(
   thunkMiddleware,
-  createLogger()
+  createLogger(),
 )(createStore)
 
 const store = finalCreateStore(require('./ducks').default)
 const history = syncHistoryWithStore(browserHistory, store)
 
 var mount = document.getElementById('mount')
+
 ReactDOM.render((
-  <Provider store={store}>
-    <Router history={history}>
-      <Route path='/' component={App} />
-    </Router>
-  </Provider>
+  <AppContainer component={App} />
 ), mount)
+
+
