@@ -1,0 +1,17 @@
+[ignore]
+.*/node_modules/babel-types/.*
+.*/node_modules/fbjs/.*
+.*/node_modules/config-chain/.*
+.*/node_modules/json5/.*
+.*/node_modules/npmconf/.*
+
+[libs]
+flow/declarations
+
+[options]
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=src
+module.name_mapper='^\(.*\)\.scss$' -> '<PROJECT_ROOT>/flow/CSSModule.js.flow'
+esproposal.class_instance_fields=enable
+esproposal.class_static_fields=enable
+esproposal.decorators=ignore
