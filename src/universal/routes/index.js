@@ -1,40 +1,34 @@
 // @flow
 
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
 
-const Index = ({ children } : { children: any }) => (
-  <div>
-    <p>IT wrk!</p>
-    <Link to='nested'>Cic</Link>
-    <Link to='other'>Clic m</Link>
-    {children}
-  </div>
-)
+import App from 'universal/components/app/app';
 
 const Nested = () => (
-  <p>I'm nsted!</p>
-)
+  <p>I'd!</p>
+);
 
 const Other = () => (
-  <p>Soi</p>
-)
+  <p>sas</p>
+);
 
 const NestedRoute = {
   path: 'nested',
-  component: Nested
-}
+  components: {
+    a: Nested,
+    b: Other,
+  },
+};
 
 const IndexRoute = {
   path: '/',
-  component: Index,
-  childRoutes: [NestedRoute]
-}
-
+  component: App,
+  childRoutes: [NestedRoute],
+};
 
 const OtherRoute = {
   path: '/other',
-  component: Other
-}
+  component: Other,
+};
 
-export default [IndexRoute, OtherRoute]
+export default [IndexRoute, OtherRoute];

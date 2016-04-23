@@ -1,22 +1,18 @@
 // @flow
-import React, { Component } from 'react'
-import { Provider } from 'react-redux'
-import { Router } from 'react-router'
 
-import routes from 'universal/routes'
-import styles from './app.scss'
+import React from 'react';
+// import styles from './app.scss';
 // import 'font-awesome/css/font-awesome.css
 
-export default class App extends Component {
-  render() {
-    const { store, history } = this.props
+export default function App(props : any) {
+  const { children } = props;
 
-    return (
-      <Provider store={store}>
-        <div>
-          <Router history={history} routes={routes} />
-        </div>
-      </Provider>
-    )
-  }
+  return (
+    <div>
+      <h1>Hello world</h1>
+      <div>
+        {children}
+      </div>
+    </div>
+  );
 }
