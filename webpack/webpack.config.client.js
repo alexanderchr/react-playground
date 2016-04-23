@@ -17,7 +17,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
-    modules: ['node_modules', prependRoot('src')],
+    modules: [prependRoot('node_modules'), prependRoot('src')],
   },
   devtool: 'eval',
   module: {
@@ -44,5 +44,5 @@ module.exports = {
 }
 
 function prependRoot(directory) {
-  return path.resolve(__dirname, directory)
+  return path.resolve(__dirname, '..', directory)
 }

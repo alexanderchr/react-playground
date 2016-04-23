@@ -53,5 +53,5 @@ module.exports = {
 };
 
 function prependRoot(directory) {
-  return path.resolve(__dirname, directory)
+  return path.resolve(__dirname, '..', directory)
 }
