@@ -12,8 +12,8 @@ module.exports = {
     'client'
   ],
   output: {
-    filename: 'bundle.js',
-    path: prependRoot('dist')
+    filename: '[name].js',
+    path: prependRoot('build/client'),
   },
   resolve: {
     extensions: ['.js', '.jsx'],

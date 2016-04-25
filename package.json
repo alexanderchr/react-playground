@@ -4,7 +4,9 @@
   "description": "A boilerplate for react and reflux",
   "repository": "github",
   "scripts": {
-    "start": "NODE_ENV=development node ./src/server/index.js.babel"
+    "start": "rimraf build/server && rimraf build/client && NODE_ENV=development webpack-dev-node --config webpack/webpack.config.server",
+    "build:client": "rimraf build/client && NODE_ENV=development webpack --config webpack/webpack.config.client",
+    "build:server": "rimraf build/server && NODE_ENV=development webpack --config webpack/webpack.config.server"
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +37,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^2.1.0-beta.5",
     "webpack-dev-middleware": "^1.6.1",
+    "webpack-dev-node": "0.0.1",
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {

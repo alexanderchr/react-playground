@@ -26,8 +26,8 @@ module.exports = {
     'server'
   ],
   output: {
-    filename: 'bundle.js',
-    path: prependRoot('dist'),
+    filename: '[name].js',
+    path: prependRoot('build/server'),
   },
   resolve: {
     extensions: ['.js', '.jsx'],
