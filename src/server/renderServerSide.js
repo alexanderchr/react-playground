@@ -29,7 +29,7 @@ function createHtml(store : any, renderProps : any) {
   `;
 }
 
-export default function renderServerSide(req : any, res : any) {
+const renderServerSide = (req : any, res : any) => {
   const store = createStore(rootReducer);
 
   res.set('content-type', 'text/html');
@@ -47,3 +47,5 @@ export default function renderServerSide(req : any, res : any) {
     res.send(html);
   });
 }
+
+export default renderServerSide;
