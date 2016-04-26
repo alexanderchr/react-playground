@@ -23,7 +23,7 @@ function createHtml(store : any, renderProps : any) {
       <body>
         <div id="mount">${ReactDOM.renderToString(<Root {...{ store, renderProps }} />)}</div>
         <script>__INITIAL_STATE = '${toJSON(store.getState())}';</script>
-        <script src='/bundle.js'></script>
+        <script src='/main.js'></script>
       </body>
     </html>
   `;
@@ -36,7 +36,7 @@ const renderServerSide = (req : any, res : any) => {
 
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
-      res.status(500).send(`<h1>as</h1> ${error.message}`);
+      res.status(500).send(`<h1>Error</h1> ${error.message}`);
     }
 
     if (!renderProps) {
