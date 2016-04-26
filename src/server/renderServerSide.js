@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom/server';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -10,24 +10,47 @@ import { toJSON } from 'transit-immutable-js';
 import rootReducer from 'universal/ducks';
 import routes from 'universal/routes';
 
-const Root = (props : any) =>
-  <Provider store={props.store}>
-    <RouterContext {...props.renderProps} />
-  </Provider>;
+class Root extends Component {
+  getChildContext = () => ({
+    insertCss: this.props.insertCss,
+  });
+
+  static childContextTypes = {
+    insertCss: PropTypes.func,
+  };
+
+  render() {
+    const { store, renderProps, insertCss } = this.props;
+
+    return (
+      <Provider store={store}>
+        <RouterContext {...renderProps} />
+      </Provider>
+    );
+  }
+}
 
 function createHtml(store : any, renderProps : any) {
+  let styles = [];
+  const insertCss = s => styles.push(s._getCss());
+  const root = ReactDOM.renderToString(<Root {...{ store, renderProps, insertCss }} />);
+
   return `
     <!DOCTYPE html>
     <html>
-      <head><title>time-tracker</title></head>
+      <head>
+        <title>time-tracker</title>
+        <style type="text/css">${styles}</style>
+      </head>
       <body>
-        <div id="mount">${ReactDOM.renderToString(<Root {...{ store, renderProps }} />)}</div>
+        <div id="mount">${root}</div>
         <script>__INITIAL_STATE = '${toJSON(store.getState())}';</script>
         <script src='/main.js'></script>
       </body>
     </html>
   `;
 }
+
 
 const renderServerSide = (req : any, res : any) => {
   const store = createStore(rootReducer);

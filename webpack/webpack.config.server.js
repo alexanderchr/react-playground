@@ -44,11 +44,21 @@ module.exports = {
         include: prependRoot('src'),
         exclude: [/node_modules/],
       },
+
+      { test: /\.scss$/, include: prependRoot('src'), loaders: ['isomorphic-style-loader', 'css?modules&sourceMap', 'sass?sourceMap'] },
+      { test: /\.scss$/, exclude: prependRoot('src'), loader: 'node-noop'  },
+      { test: /\.css$/, include: prependRoot('src'), loaders: ['isomorphic-style-loader', 'css?modules&sourceMap'] },
+      { test: /\.css$/, exclude: prependRoot('src'), loader: 'node-noop' },
+
       { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9\.\=]*)?$/, loader: 'url-loader' },
     ]
   },
+  sassLoader: {
+    includePaths: [...bourbon.includePaths, ...bourbonNeat.includePaths, './vendor']
+  },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NormalModuleReplacementPlugin(/\.s?css/, 'node-noop'),
   ]
 };
 
