@@ -17,7 +17,7 @@ fs.readdirSync(prependRoot('node_modules'))
 module.exports = {
   target: 'node',
   node: {
-    __dirname: false,
+    __dirname: '.',
     __filename: false
   },
   entry: [
