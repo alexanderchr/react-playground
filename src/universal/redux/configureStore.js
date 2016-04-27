@@ -1,22 +1,29 @@
 // @flow
 
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
+import { routerMiddleware } from 'react-router-redux'
 
+
+import graphqlMiddleware from 'universal/redux/middleware/graphql';
 import rootReducer from 'universal/ducks';
 
-export default function (intialState : mixed = {}) {
-  const finalCreateStore = applyMiddleware(
+export default function (intialState : mixed = {}, history : any) {
+  const middleware = [
     thunkMiddleware,
-    createLogger(),
-  )(createStore);
+    routerMiddleware(history),
+    createLogger()
+  ];
 
-  const store = finalCreateStore(rootReducer, intialState);
+  const store = createStore(rootReducer, intialState, compose(
+    applyMiddleware(...middleware),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  ));
 
   if (module.hot) {
     module.hot.accept('universal/ducks', () => {
-      const nextReducer = require('universal/ducks'); // eslint-disable-line
+      const nextReducer = require('universal/ducks').default; // eslint-disable-line
       store.replaceReducer(nextReducer);
     });
   }
