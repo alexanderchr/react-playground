@@ -2,8 +2,10 @@ var webpack = require('webpack')
 var path = require('path')
 var fs = require('fs');
 
-var bourbon = require('node-bourbon')
-var bourbonNeat = require('node-neat')
+var cssNext = require('postcss-cssnext');
+var modulesValues = require('postcss-modules-values');
+var autoReset = require('postcss-autoreset');
+var lost = require('lost');
 
 var nodeModules = {};
 fs.readdirSync(prependRoot('node_modules'))
@@ -37,25 +39,23 @@ module.exports = {
   devtool: 'eval',
   module: {
     loaders: [
-      { test: /\.json$/, loader: 'json' },
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
         include: prependRoot('src'),
         exclude: [/node_modules/],
       },
-      { test: /\.scss$/, include: prependRoot('src'), loaders: ['isomorphic-style', 'css?modules&sourceMap', 'sass?sourceMap'] },
-      { test: /\.css$/, include: prependRoot('src'), loaders: ['isomorphic-style', 'css?modules&sourceMap'] },
 
-      // Disable css modules for external css
-      { test: /\.scss$/, exclude: prependRoot('src'), loaders: ['isomorphic-style', 'css?sourceMap', 'sass?sourceMap'] },
-      { test: /\.css$/, exclude: prependRoot('src'), loaders: ['isomorphic-style', 'css'] },
+      {
+        test: /\.css$/,
+        loaders: ['isomorphic-style', 'css?modules&importLoaders=1', 'postcss']
+      },
 
       { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9\.\=]*)?$/, loader: 'file-loader' },
     ]
   },
-  sassLoader: {
-    includePaths: [...bourbon.includePaths, ...bourbonNeat.includePaths, './vendor']
+  postcss: function() {
+    return [cssNext, modulesValues, autoReset, lost];
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
