@@ -34,7 +34,8 @@ module.exports = {
       // Disable css modules for external css
       { test: /\.scss$/, exclude: prependRoot('src'), loaders: ['isomorphic-style', 'css?sourceMap', 'sass?sourceMap'] },
       { test: /\.css$/, exclude: prependRoot('src'), loaders: ['isomorphic-style', 'css'] },
-      { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9\.\=]*)?$/, loader: 'url-loader' },
+      
+      { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9\.\=]*)?$/, loader: 'file-loader' },
     ]
   },
   sassLoader: {
