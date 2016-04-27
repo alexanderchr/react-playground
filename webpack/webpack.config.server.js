@@ -58,6 +58,7 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
     // new webpack.NormalModuleReplacementPlugin(/\.s?css/, 'node-noop'),
   ]
 };
