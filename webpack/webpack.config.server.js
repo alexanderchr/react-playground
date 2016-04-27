@@ -44,11 +44,12 @@ module.exports = {
         include: prependRoot('src'),
         exclude: [/node_modules/],
       },
+      { test: /\.scss$/, include: prependRoot('src'), loaders: ['isomorphic-style', 'css?modules&sourceMap', 'sass?sourceMap'] },
+      { test: /\.css$/, include: prependRoot('src'), loaders: ['isomorphic-style', 'css?modules&sourceMap'] },
 
-      { test: /\.scss$/, include: prependRoot('src'), loaders: ['isomorphic-style-loader', 'css?modules&sourceMap', 'sass?sourceMap'] },
-      { test: /\.scss$/, exclude: prependRoot('src'), loader: 'node-noop'  },
-      { test: /\.css$/, include: prependRoot('src'), loaders: ['isomorphic-style-loader', 'css?modules&sourceMap'] },
-      { test: /\.css$/, exclude: prependRoot('src'), loader: 'node-noop' },
+      // Disable css modules for external css
+      { test: /\.scss$/, exclude: prependRoot('src'), loaders: ['isomorphic-style', 'css?sourceMap', 'sass?sourceMap'] },
+      { test: /\.css$/, exclude: prependRoot('src'), loaders: ['isomorphic-style', 'css?sourceMap'] },
 
       { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9\.\=]*)?$/, loader: 'url-loader' },
     ]
