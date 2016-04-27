@@ -10,14 +10,14 @@ export default class Root extends Component {
     history: PropTypes.object,
     store: PropTypes.object,
   };
-  
+
   static childContextTypes = {
     insertCss: PropTypes.func,
   };
 
   getChildContext() {
     return {
-      insertCss: () => {},
+      insertCss: (styles) => {  styles._insertCss(); },
     }
   }
 
