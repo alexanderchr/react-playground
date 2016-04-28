@@ -17,6 +17,10 @@ export default class Root extends Component {
 
   getChildContext() {
     return {
+      // Because of https://github.com/kriasoft/isomorphic-style-loader/issues/19 this will
+      // insert the server-side rendered styles again. It works in development but is suboptimal
+      // for production. To prepare for production: disable it and bundle all styles into one file.
+      // Inline server side rendering may be kept as is for above-the-fold styles.
       insertCss: (...styles) => {  styles.forEach(s => s._insertCss()); },
     }
   }
