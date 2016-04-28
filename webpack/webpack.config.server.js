@@ -48,7 +48,18 @@ module.exports = {
 
       {
         test: /\.css$/,
-        loaders: ['isomorphic-style', 'css?modules&importLoaders=1', 'postcss']
+        loaders: [
+          'isomorphic-style',
+          {
+            loader: 'css',
+            query: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[name]---[local]---[hash:base64:5]',
+            },
+          },
+          'postcss',
+        ],
       },
 
       { test: /\.(eot|woff|woff2|ttf|svg)(\?[a-zA-Z0-9\.\=]*)?$/, loader: 'file-loader' },
