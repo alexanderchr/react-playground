@@ -31,16 +31,16 @@ class Root extends Component {
 }
 
 function createHtml(store : any, renderProps : any) {
-  let styles = [];
-  const insertCss = s => styles.push(s._getCss());
+  let allStyles = [];
+  const insertCss = (...styles) => allStyles = allStyles.concat(styles.map(s => s._getCss()));
   const root = ReactDOM.renderToString(<Root {...{ store, renderProps, insertCss }} />);
 
-  return `
-    <!DOCTYPE html>
+  return `<!DOCTYPE html>
     <html>
       <head>
+        <meta charset="utf-8">
         <title>time-tracker</title>
-        <style type="text/css">${styles.join('\n')}</style>
+        <style type="text/css">${allStyles.join('\n')}</style>
       </head>
       <body>
         <div id="mount">${root}</div>

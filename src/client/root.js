@@ -17,7 +17,7 @@ export default class Root extends Component {
 
   getChildContext() {
     return {
-      insertCss: (styles) => {  styles._insertCss(); },
+      insertCss: (...styles) => {  styles.forEach(s => s._insertCss()); },
     }
   }
 
