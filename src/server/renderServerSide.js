@@ -40,7 +40,7 @@ function createHtml(store : any, renderProps : any) {
     <html>
       <head>
         <title>time-tracker</title>
-        <style type="text/css">${styles}</style>
+        <style type="text/css">${styles.join('\n')}</style>
       </head>
       <body>
         <div id="mount">${root}</div>

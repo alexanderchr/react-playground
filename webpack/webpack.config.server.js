@@ -4,7 +4,6 @@ var fs = require('fs');
 
 var cssNext = require('postcss-cssnext');
 var modulesValues = require('postcss-modules-values');
-var autoReset = require('postcss-autoreset');
 var lost = require('lost');
 
 var nodeModules = {};
@@ -66,7 +65,7 @@ module.exports = {
     ]
   },
   postcss: function() {
-    return [cssNext, modulesValues, autoReset, lost];
+    return [cssNext, modulesValues, lost];
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
