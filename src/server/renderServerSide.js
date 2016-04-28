@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/server';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { match, RouterContext } from 'react-router';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import { toJSON } from 'transit-immutable-js';
 
 import rootReducer from 'universal/ducks';
@@ -51,7 +52,6 @@ function createHtml(store : any, renderProps : any) {
   `;
 }
 
-
 const renderServerSide = (req : any, res : any) => {
   const store = createStore(rootReducer);
 
@@ -65,6 +65,11 @@ const renderServerSide = (req : any, res : any) => {
     if (!renderProps) {
       res.status(404).send('<h1>Not found</h1>');
     }
+
+    store.dispatch({
+      type: LOCATION_CHANGE,
+      payload: renderProps.location,
+    });
 
     const html = createHtml(store, renderProps);
     res.send(html);
