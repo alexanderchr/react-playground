@@ -12,7 +12,7 @@ react
 [options]
 module.system.node.resolve_dirname=node_modules
 module.system.node.resolve_dirname=src
-module.name_mapper='^\(.*\)\.scss$' -> '<PROJECT_ROOT>/flow/CSSModule.js.flow'
+module.name_mapper='^\(.*\)\.css$' -> '<PROJECT_ROOT>/flow/CSSModule.js.flow'
 esproposal.class_instance_fields=enable
 esproposal.class_static_fields=enable
 esproposal.decorators=ignore
