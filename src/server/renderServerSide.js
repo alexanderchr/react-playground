@@ -9,6 +9,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { toJSON } from 'transit-immutable-js';
 
 import rootReducer from 'universal/ducks';
+import { loginSuccess } from 'universal/ducks/auth';
 import routes from 'universal/routes';
 
 class Root extends Component {
@@ -71,6 +72,11 @@ const renderServerSide = (req : any, res : any) => {
       type: LOCATION_CHANGE,
       payload: renderProps.location,
     });
+
+    const token = req.cookies.token;
+    if (token) {
+      store.dispatch(loginSuccess(token))
+    }
 
     const html = createHtml(store, renderProps);
     res.send(html);

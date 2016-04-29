@@ -3,6 +3,7 @@
 import url from 'url';
 
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import dynamicMiddleware from 'dynamic-middleware';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
@@ -13,6 +14,8 @@ import webpackConfig from '../../webpack/webpack.config.client';
 import renderServerSide from 'server/renderServerSide';
 
 const app = express();
+app.use(cookieParser());
+
 const compiler = webpack(webpackConfig);
 
 app.use(webpackDevMiddleware(compiler, {

@@ -46,6 +46,7 @@
   "dependencies": {
     "babel-polyfill": "^6.7.4",
     "classnames": "^2.2.0",
+    "cookie-parser": "^1.4.1",
     "express-http-proxy": "^0.6.0",
     "immutable": "^3.7.6",
     "isomorphic-fetch": "^2.2.1",
