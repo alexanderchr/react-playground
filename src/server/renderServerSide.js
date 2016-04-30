@@ -1,41 +1,18 @@
 // @flow
 
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom/server';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { match, RouterContext } from 'react-router';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { renderToString } from 'react-dom/server';
+import { match } from 'react-router';
 import { toJSON } from 'transit-immutable-js';
 
 import rootReducer from 'universal/ducks';
-import { loginSuccess } from 'universal/ducks/auth';
 import routes from 'universal/routes';
-
-class Root extends Component {
-  getChildContext = () => ({
-    insertCss: this.props.insertCss,
-  });
-
-  static childContextTypes = {
-    insertCss: PropTypes.func,
-  };
-
-  render() {
-    const { store, renderProps, insertCss } = this.props;
-
-    return (
-      <Provider store={store}>
-        <RouterContext {...renderProps} />
-      </Provider>
-    );
-  }
-}
+import configureStore from 'server/redux/configureStore';
+import Root from 'server/root';
 
 function createHtml(store : any, renderProps : any) {
   let allStyles = [];
   const insertCss = (...styles) => allStyles = allStyles.concat(styles.map(s => s._getCss()));
-  const root = ReactDOM.renderToString(<Root {...{ store, renderProps, insertCss }} />);
+  const root = renderToString(<Root {...{ store, renderProps, insertCss }} />);
 
   return `<!DOCTYPE html>
     <html>
@@ -54,12 +31,10 @@ function createHtml(store : any, renderProps : any) {
   `;
 }
 
-const renderServerSide = (req : any, res : any) => {
-  const store = createStore(rootReducer);
-
+function renderServerSide (req : any, res : any) {
   res.set('content-type', 'text/html');
 
-  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+  match({ routes, location: req.url }, async (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(`<h1>Error</h1> ${error.message}`);
     }
@@ -68,15 +43,10 @@ const renderServerSide = (req : any, res : any) => {
       res.status(404).send('<h1>Not found</h1>');
     }
 
-    store.dispatch({
-      type: LOCATION_CHANGE,
-      payload: renderProps.location,
-    });
-
-    const token = req.cookies.token;
-    if (token) {
-      store.dispatch(loginSuccess(token))
-    }
+    const store = await configureStore(
+      renderProps.location,
+      req.cookies.token,
+    );
 
     const html = createHtml(store, renderProps);
     res.send(html);

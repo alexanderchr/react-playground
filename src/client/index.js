@@ -7,7 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
 import { fromJSON } from 'transit-immutable-js';
 
-import configureStore from 'universal/redux/configureStore';
+import configureStore from 'client/redux/configureStore';
 import Root from 'client/root';
 
 // injected by `renderServerSide`

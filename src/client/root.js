@@ -4,8 +4,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import routes from 'universal/routes';
 
-export default class Root extends Component {
-
+class Root extends Component {
   static propTypes = {
     history: PropTypes.object,
     store: PropTypes.object,
@@ -35,3 +34,5 @@ export default class Root extends Component {
     );
   }
 }
+
+export default Root;

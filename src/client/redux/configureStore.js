@@ -3,17 +3,16 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { routerMiddleware } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux';
 
-
-import graphqlMiddleware from 'universal/redux/middleware/graphql';
 import rootReducer from 'universal/ducks';
 
-export default function (intialState : mixed = {}, history : any) {
+
+export default function (intialState : mixed, history : any) {
   const middleware = [
     thunkMiddleware,
     routerMiddleware(history),
-    createLogger()
+    createLogger(),
   ];
 
   const store = createStore(rootReducer, intialState, compose(
