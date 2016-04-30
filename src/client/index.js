@@ -19,14 +19,14 @@ const syncedHistory = syncHistoryWithStore(browserHistory, store);
 const mount = document.getElementById('mount');
 
 ReactDOM.render((
-  <AppContainer component={Root} props={{ store, history: syncedHistory }} />
+  <AppContainer><Root store={store} history={syncedHistory} /></AppContainer>
 ), mount);
 
 if (module.hot) {
   module.hot.accept('./root', () => {
     const NewRoot = require('./root').default; // eslint-disable-line
     ReactDOM.render((
-      <AppContainer component={NewRoot} props={{ store, history: syncedHistory }} />
+      <AppContainer><NewRoot store={store} history={syncedHistory} /></AppContainer>
     ), mount);
   });
 }
