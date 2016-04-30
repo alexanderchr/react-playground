@@ -1,0 +1,79 @@
+
+:root {
+  --base-font-size: 16px;
+  --base-line-height: 1.5;
+  --base-font-family: 'helvetica neue';
+}
+
+html {
+  text-size-adjust: 100%;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font: var(--base-font-size)/var(--base-line-height) var(--base-font-family);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6,
+p,
+blockquote, figure,
+ol, ul {
+  margin: 0;
+  padding: 0;
+}
+
+main, li {
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+}
+
+strong {
+  font-weight: bold;
+}
+
+a, button {
+  color: inherit;
+  transition-duration: 0.4s;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  overflow: visible;
+  border: 0;
+  background: none;
+  letter-spacing: inherit;
+  font: inherit;
+  cursor: pointer;
+  -webkit-font-smoothing: inherit;
+}
+
+::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+:focus {
+  outline: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}

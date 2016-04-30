@@ -2,9 +2,11 @@
 
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import styles from './app.scss';
 
-@withStyles(styles)
+import styles from './app.css';
+import normalizeStyles from 'universal/styles/normalize.css';
+
+@withStyles(styles, normalizeStyles)
 export default class App extends Component {
   render() {
     const { children } = this.props;
