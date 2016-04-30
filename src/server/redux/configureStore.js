@@ -11,7 +11,7 @@ const middleware = [
   thunkMiddleware,
 ];
 
-async function configureStore(location : string, authToken : string) {
+export default async function configureStore(location : string, authToken : string) {
   const store = createStore(rootReducer, undefined, applyMiddleware(...middleware));
 
   store.dispatch({
@@ -25,5 +25,3 @@ async function configureStore(location : string, authToken : string) {
 
   return store;
 }
-
-export default configureStore;
