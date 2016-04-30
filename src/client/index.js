@@ -13,7 +13,7 @@ import Root from 'client/root';
 // injected by `renderServerSide`
 declare var __INITIAL_STATE : string;
 
-const store = configureStore(fromJSON(__INITIAL_STATE), browserHistory);
+const store = configureStore(__INITIAL_STATE && fromJSON(__INITIAL_STATE), browserHistory);
 const syncedHistory = syncHistoryWithStore(browserHistory, store);
 
 const mount = document.getElementById('mount');
