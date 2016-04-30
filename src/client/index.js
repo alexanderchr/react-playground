@@ -19,7 +19,7 @@ const syncedHistory = syncHistoryWithStore(browserHistory, store);
 const mount = document.getElementById('mount');
 
 ReactDOM.render((
-    <AppContainer component={Root} props={{ store, history: syncedHistory }} />
+  <AppContainer component={Root} props={{ store, history: syncedHistory }} />
 ), mount);
 
 if (module.hot) {

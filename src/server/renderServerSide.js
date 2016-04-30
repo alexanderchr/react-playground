@@ -1,17 +1,18 @@
 // @flow
 
+import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match } from 'react-router';
 import { toJSON } from 'transit-immutable-js';
 
-import rootReducer from 'universal/ducks';
 import routes from 'universal/routes';
 import configureStore from 'server/redux/configureStore';
 import Root from 'server/root';
 
 function createHtml(store : any, renderProps : any) {
   let allStyles = [];
-  const insertCss = (...styles) => allStyles = allStyles.concat(styles.map(s => s._getCss()));
+  // eslint-disable-next-line no-underscore-dangle
+  const insertCss = (...styles) => { allStyles = allStyles.concat(styles.map(s => s._getCss())); };
   const root = renderToString(<Root {...{ store, renderProps, insertCss }} />);
 
   return `<!DOCTYPE html>
@@ -31,7 +32,7 @@ function createHtml(store : any, renderProps : any) {
   `;
 }
 
-function renderServerSide (req : any, res : any) {
+function renderServerSide(req : any, res : any) {
   res.set('content-type', 'text/html');
 
   match({ routes, location: req.url }, async (error, redirectLocation, renderProps) => {

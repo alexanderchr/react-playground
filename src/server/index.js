@@ -27,9 +27,9 @@ app.use(webpackHotMiddleware(compiler));
 app.get('/favicon.ico', (req, res) => res.end());
 
 app.use('/graphql', proxyMiddleware('http://localhost:4001/', {
-  forwardPath: function(req, res) {
+  forwardPath(req) {
     return url.parse(req.url).path;
-  }
+  },
 }));
 
 app.listen(8000, () => {

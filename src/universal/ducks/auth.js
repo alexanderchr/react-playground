@@ -1,6 +1,6 @@
 // @flow
 
-import { Map, Seq, fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import { push } from 'react-router-redux';
 
 const LOGIN = 'time-tracker/auth/LOGIN';
@@ -10,8 +10,8 @@ const LOGOUT = 'time-tracker/auth/LOGOUT';
 
 import fetchGraphql from 'universal/utility/fetchGraphql';
 
-export default function auth(state : Map = Map(), action : any) {
-  switch(action.type) {
+export default function auth(state : Map = new Map(), action : any) {
+  switch (action.type) {
     case LOGIN:
       return state.merge({ pending: true, error: false });
 
@@ -32,14 +32,19 @@ export default function auth(state : Map = Map(), action : any) {
 export function logout() {
   return (dispatch : () => {}) => {
     if (document && typeof(document.cookie) !== undefined) {
-      document.cookie = `token=`;
+      document.cookie = 'token=';
     }
 
-    dispatch({
-      type: LOGOUT
-    });
+    dispatch({ type: LOGOUT });
     dispatch(push('/login'));
-  }
+  };
+}
+
+export function loginSuccess(token : string) {
+  return {
+    type: LOGIN_SUCCESS,
+    payload: { token },
+  };
 }
 
 export function login(email : string, password : string) {
@@ -55,14 +60,14 @@ export function login(email : string, password : string) {
         }
       }`;
 
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    let result = await fetchGraphql(query, { email, password });
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const result = await fetchGraphql(query, { email, password });
 
     if (result.errors && result.errors.length > 0) {
       dispatch({
         type: LOGIN_ERROR,
         error: true,
-        payload: result.errors
+        payload: result.errors,
       });
     } else {
       const { token } = result.data.login;
@@ -74,15 +79,8 @@ export function login(email : string, password : string) {
         document.cookie = `token=${token}`;
       }
 
-      dispatch(loginSuccess(token))
+      dispatch(loginSuccess(token));
       dispatch(push('/'));
     }
-  }
-}
-
-export function loginSuccess(token : string) {
-  return {
-    type: LOGIN_SUCCESS,
-    payload: { token },
-  }
+  };
 }

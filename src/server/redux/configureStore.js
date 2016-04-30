@@ -1,6 +1,6 @@
 // @flow
 
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
@@ -8,7 +8,7 @@ import rootReducer from 'universal/ducks';
 import { loginSuccess } from 'universal/ducks/auth';
 
 const middleware = [
-  thunkMiddleware
+  thunkMiddleware,
 ];
 
 async function configureStore(location : string, authToken : string) {
@@ -20,7 +20,7 @@ async function configureStore(location : string, authToken : string) {
   });
 
   if (authToken) {
-    store.dispatch(loginSuccess(authToken))
+    store.dispatch(loginSuccess(authToken));
   }
 
   return store;
