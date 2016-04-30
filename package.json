@@ -6,7 +6,8 @@
   "scripts": {
     "start": "rimraf build/server && rimraf build/client && NODE_ENV=development webpack-dev-node --config webpack/webpack.config.server",
     "build:client": "rimraf build/client && NODE_ENV=development webpack --config webpack/webpack.config.client",
-    "build:server": "rimraf build/server && NODE_ENV=development webpack --config webpack/webpack.config.server"
+    "build:server": "rimraf build/server && NODE_ENV=development webpack --config webpack/webpack.config.server",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
