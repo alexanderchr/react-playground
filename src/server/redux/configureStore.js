@@ -11,17 +11,26 @@ const middleware = [
   thunkMiddleware,
 ];
 
-export default async function configureStore(location : string, authToken : string) {
+type ConfigureStoreOptions = {
+  location : string,
+  authToken : string,
+  dependentActions : any[],
+}
+
+export default async function configureStore(options : ConfigureStoreOptions) {
   const store = createStore(rootReducer, undefined, applyMiddleware(...middleware));
 
   store.dispatch({
     type: LOCATION_CHANGE,
-    payload: location,
+    payload: options.location,
   });
 
-  if (authToken) {
-    store.dispatch(loginSuccess(authToken));
+  if (options.authToken) {
+    store.dispatch(loginSuccess(options.location));
   }
+
+  // Let any data dependencies defined on components complete before continuing rendering
+  await Promise.all(options.dependentActions.map(action => store.dispatch(action)));
 
   return store;
 }

@@ -32,6 +32,13 @@ function createHtml(store : any, renderProps : any) {
   `;
 }
 
+function extractDependentActions(components : any[]) : any[] {
+  return components
+    .map(x => x.dependentActions)
+    .filter(Boolean)
+    .reduce((flattened : any[], actions : any[]) => flattened.concat(actions));
+}
+
 function renderServerSide(req : any, res : any) {
   res.set('content-type', 'text/html');
 
@@ -44,10 +51,11 @@ function renderServerSide(req : any, res : any) {
       res.status(404).send('<h1>Not found</h1>');
     }
 
-    const store = await configureStore(
-      renderProps.location,
-      req.cookies.token,
-    );
+    const store = await configureStore({
+      location: renderProps.location,
+      authToken: req.cookies.token,
+      dependentActions: extractDependentActions(renderProps.components),
+    });
 
     const html = createHtml(store, renderProps);
     res.send(html);
