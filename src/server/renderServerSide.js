@@ -36,7 +36,7 @@ function extractDependentActions(components : any[]) : any[] {
   return components
     .map(x => x.dependentActions)
     .filter(Boolean)
-    .reduce((flattened : any[], actions : any[]) => flattened.concat(actions));
+    .reduce((flattened : any[], actions : any[]) => flattened.concat(actions), []);
 }
 
 function renderServerSide(req : any, res : any) {
