@@ -16,3 +16,4 @@ module.name_mapper='^\(.*\)\.css$' -> '<PROJECT_ROOT>/flow/CSSModule.js.flow'
 esproposal.class_instance_fields=enable
 esproposal.class_static_fields=enable
 esproposal.decorators=ignore
+munge_underscores=true
