@@ -1,0 +1,47 @@
+@import '../login/login.css';
+
+:root {
+  --header-height: 3em;
+}
+
+.header {
+  lost-utility: clearfix;
+  line-height: var(--header-height);
+}
+
+/* bit strange to keep this element inside header but works for now as it lets the header be
+100% of its parents width */
+
+.header-extension {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: -10;
+  height: var(--header-height);
+  background-color: color(red saturation(70%) lightness(60%));
+}
+
+.logo {
+  float: left;
+  color: white;
+  font-size: 1.4em;
+}
+
+.menu {
+  lost-utility: clearfix;
+  float: right;
+
+  @media (width <= 500px) {
+    display: none;
+  }
+
+  & li {
+    float: left;
+    padding: 0 0.5em;
+    color: gray(100%);
+
+    &:hover {
+      color: gray(85%);
+    }
+  }
+}
