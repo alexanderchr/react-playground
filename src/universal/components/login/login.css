@@ -1,0 +1,56 @@
+
+.error {
+  color: color(red saturation(60%));
+}
+
+:root {
+  --color: color(red saturation(70%) lightness(55%));;
+  --hover-color: color(red saturation(70%) lightness(65%));;
+  --disabled-color: color(red saturation(70%) lightness(80%));;
+}
+
+.login {
+  lost-center: 400px;
+
+  & label {
+    color: gray(20%);
+    display: block;
+    margin-top: 1em;
+  }
+
+  & input {
+    appearance: none;
+    border-radius: 0;
+    border: none;
+    box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.5);
+
+    display: block;
+    font-size: 1em;
+    margin-top: 0.4em;
+    padding: 0.6em;
+    width: 100%;
+  }
+
+  & button {
+    border-radius: 2px;
+    background-color: var(--color);
+    box-shadow: 0px 0px 2px var(--color);
+    color: white;
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0.9em 0 0 auto;
+    padding: 0.6em 2em;
+    with: auto;
+
+    &:hover {
+      background-color: var(--hover-color);
+      box-shadow: 0px 0px 2px var(--hover-color);
+    }
+
+    &[disabled] {
+      background-color: var(--disabled-color);
+      box-shadow: 0px 0px 2px var(--disabled-color);
+    }
+  }
+}
