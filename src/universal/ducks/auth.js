@@ -1,56 +1,68 @@
 // @flow
 
-import { Map, fromJS } from 'immutable';
+import { Record, List, fromJS } from 'immutable';
 import { push } from 'react-router-redux';
-
-const LOGIN = 'time-tracker/auth/LOGIN';
-const LOGIN_SUCCESS = 'time-tracker/auth/LOGIN_SUCCESS';
-const LOGIN_ERROR = 'time-tracker/auth/LOGIN_ERROR';
-const LOGOUT = 'time-tracker/auth/LOGOUT';
 
 import fetchGraphql from 'universal/utility/fetchGraphql';
 
-export default function auth(state : Map = new Map(), action : any) {
-  switch (action.type) {
-    case LOGIN:
-      return state.merge({ pending: true, error: false });
+const ActionTypes = {
+  LOGIN: 'time-tracker/auth/LOGIN',
+  LOGIN_SUCCESS: 'time-tracker/auth/LOGIN_SUCCESS',
+  LOGIN_ERROR: 'time-tracker/auth/LOGIN_ERROR',
+  LOGOUT: 'time-tracker/auth/LOGOUT',
+};
 
-    case LOGIN_SUCCESS:
-      return state.merge({ pending: false, error: false, token: action.payload.token });
+type AuthShape = Record<{
+  token? : string,
+  errors : List<string>,
+  pending : boolean,
+}>;
 
-    case LOGIN_ERROR:
-      return state.merge({ pending: false, error: fromJS(action.payload) });
+const AuthRecord : any = Record({
+  token: undefined,
+  errors : List(),
+  pending: false
+});
 
-    case LOGOUT:
-      return state.merge({ pending: false, error: false, token: undefined });
+function reducer(state : AuthShape = AuthRecord(), action : any) : AuthShape {
+  switch(action.type) {
+    case ActionTypes.LOGIN:
+      return new AuthRecord({ pending: true });
+
+    case ActionTypes.LOGOUT:
+      return new AuthRecord();
+
+    case ActionTypes.LOGIN_SUCCESS:
+      return new AuthRecord({ token: action.payload.token });
+
+    case ActionTypes.LOGIN_ERROR:
+      return new AuthRecord({ errors: action.payload });
 
     default:
       return state;
   }
 }
 
-export function logout() {
-  return (dispatch : () => {}) => {
-    if (document && typeof(document.cookie) !== undefined) {
-      document.cookie = 'token=';
-    }
-
-    dispatch({ type: LOGOUT });
-    dispatch(push('/login'));
-  };
-}
-
-export function loginSuccess(token : string) {
+function loginSuccess(token : string) {
   return {
-    type: LOGIN_SUCCESS,
-    payload: { token },
+    type: ActionTypes.LOGIN_SUCCESS,
+    payload: {
+      token,
+    },
   };
 }
 
-export function login(email : string, password : string) {
-  return async (dispatch : any) => {
+function loginError(errors : List<string>) {
+  return {
+    type: ActionTypes.LOGIN_ERROR,
+    payload: errors,
+  };
+}
+
+function login(email : string, password : string) {
+  return async (dispatch : Function) => {
     dispatch({
-      type: LOGIN,
+      type: ActionTypes.LOGIN,
     });
 
     const query = `
@@ -64,17 +76,14 @@ export function login(email : string, password : string) {
     const result = await fetchGraphql(query, { email, password });
 
     if (result.errors && result.errors.length > 0) {
-      dispatch({
-        type: LOGIN_ERROR,
-        error: true,
-        payload: result.errors,
-      });
+      dispatch(loginError(fromJS(result.errors)));
     } else {
-      const { token } = result.data.login;
+      const token : string = result.data.login.token;
 
       // This has a few major issues:
       // 1. It's unsecure
       // 2. It does not expire
+      // 3. It's bad
       if (document && typeof(document.cookie) !== undefined) {
         document.cookie = `token=${token}`;
       }
@@ -82,5 +91,21 @@ export function login(email : string, password : string) {
       dispatch(loginSuccess(token));
       dispatch(push('/'));
     }
+  }
+}
+
+
+function logout() {
+  return (dispatch : any) => {
+    if (document && typeof(document.cookie) !== undefined) {
+      document.cookie = 'token=';
+    }
+
+    dispatch({ type: ActionTypes.LOGOUT });
   };
 }
+
+export type { AuthShape };
+export { ActionTypes };
+export { login, logout, loginSuccess, loginError };
+export default reducer;
