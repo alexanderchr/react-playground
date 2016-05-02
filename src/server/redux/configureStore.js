@@ -26,7 +26,7 @@ export default async function configureStore(options : ConfigureStoreOptions) {
   });
 
   if (options.authToken) {
-    store.dispatch(loginSuccess(options.location));
+    store.dispatch(loginSuccess(options.authToken));
   }
 
   // Let any data dependencies defined on components complete before continuing rendering

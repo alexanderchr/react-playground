@@ -43,22 +43,24 @@ function renderServerSide(req : any, res : any) {
   res.set('content-type', 'text/html');
 
   match({ routes, location: req.url }, async (error, redirectLocation, renderProps) => {
-    if (error) {
-      res.status(500).send(`<h1>Error</h1> ${error.message}`);
-    }
+    try {
+      if (error) {
+        res.status(500).send(`<h1>Error</h1> ${error.message}`);
+      }
 
-    if (!renderProps) {
-      res.status(404).send('<h1>Not found</h1>');
-    }
+      if (!renderProps) {
+        res.status(404).send('<h1>Not found</h1>');
+      }
 
-    const store = await configureStore({
-      location: renderProps.location,
-      authToken: req.cookies.token,
-      dependentActions: extractDependentActions(renderProps.components),
-    });
+      const store = await configureStore({
+        location: renderProps.location,
+        authToken: req.cookies.token,
+        dependentActions: extractDependentActions(renderProps.components),
+      });
 
-    const html = createHtml(store, renderProps);
-    res.send(html);
+      const html = createHtml(store, renderProps);
+      res.send(html);
+    } catch(e) { console.error(e); }
   });
 }
 
