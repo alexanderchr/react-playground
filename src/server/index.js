@@ -4,7 +4,7 @@ import url from 'url';
 
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import dynamicMiddleware from 'dynamic-middleware';
+import DynamicMiddleware from 'dynamic-middleware';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -38,7 +38,7 @@ app.listen(8000, () => {
 
 // Server side rendering - use a replaceable middleware when in dev to allow hot reloading
 if (module.hot) {
-  const replaceableRenderServerSide = dynamicMiddleware(renderServerSide);
+  const replaceableRenderServerSide = DynamicMiddleware.create(renderServerSide);
   app.get('*', replaceableRenderServerSide.handler());
   module.hot.accept('./renderServerSide', () => {
     const newRenderServerSide = require('./renderServerSide').default; // eslint-disable-line

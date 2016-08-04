@@ -45,11 +45,11 @@ function renderServerSide(req : any, res : any) {
   match({ routes, location: req.url }, async (error, redirectLocation, renderProps) => {
     try {
       if (error) {
-        res.status(500).send(`<h1>Error</h1> ${error.message}`);
+        return res.status(500).send(`<h1>Error</h1> ${error.message}`);
       }
 
       if (!renderProps) {
-        res.status(404).send('<h1>Not found</h1>');
+        return res.status(404).send('<h1>Not found</h1>');
       }
 
       const store = await configureStore({
@@ -60,7 +60,7 @@ function renderServerSide(req : any, res : any) {
 
       const html = createHtml(store, renderProps);
       res.send(html);
-    } catch(e) { console.error(e); }
+    } catch (e) { console.error(e); }
   });
 }
 
