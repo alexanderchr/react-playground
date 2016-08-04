@@ -67,7 +67,7 @@ function login(email : string, password : string) {
 
     const query = `
       query($email : String!, $password : String!) {
-        login(email: $email, password: $password) {
+        authenticate(email: $email, password: $password) {
           token
         }
       }`;
@@ -78,7 +78,7 @@ function login(email : string, password : string) {
     if (result.errors && result.errors.length > 0) {
       dispatch(loginError(fromJS(result.errors)));
     } else {
-      const token : string = result.data.login.token;
+      const token : string = result.data.authenticate.token;
 
       // This has a few major issues:
       // 1. It's unsecure
