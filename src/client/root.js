@@ -1,7 +1,6 @@
-
 import React, { Component, PropTypes } from 'react';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import { Router } from 'react-router/es6';
 import routes from 'universal/routes';
 
 class Root extends Component {
