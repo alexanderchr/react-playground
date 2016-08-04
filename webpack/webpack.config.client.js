@@ -12,6 +12,7 @@ module.exports = {
     'client'
   ],
   output: {
+    publicPath: '/',
     filename: '[name].js',
     path: prependRoot('build/client'),
   },
