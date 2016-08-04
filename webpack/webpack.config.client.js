@@ -3,7 +3,6 @@ var path = require('path')
 
 var cssNext = require('postcss-cssnext');
 var modulesValues = require('postcss-modules-values');
-var lost = require('lost');
 
 module.exports = {
   entry: [
@@ -50,7 +49,7 @@ module.exports = {
     ]
   },
   postcss: function() {
-    return [cssNext, modulesValues, lost];
+    return [cssNext, modulesValues];
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

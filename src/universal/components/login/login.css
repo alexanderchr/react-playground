@@ -10,7 +10,8 @@
 }
 
 .login {
-  lost-center: 400px;
+  max-width: 400px;
+  margin: 0 auto;
 
   & label {
     color: gray(20%);

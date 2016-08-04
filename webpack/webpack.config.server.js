@@ -4,7 +4,6 @@ var fs = require('fs');
 
 var cssNext = require('postcss-cssnext');
 var modulesValues = require('postcss-modules-values');
-var lost = require('lost');
 
 var nodeModules = {};
 fs.readdirSync(prependRoot('node_modules'))
@@ -65,7 +64,7 @@ module.exports = {
     ]
   },
   postcss: function() {
-    return [cssNext, modulesValues, lost];
+    return [cssNext, modulesValues];
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
