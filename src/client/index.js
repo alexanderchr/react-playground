@@ -31,6 +31,7 @@ ReactDOM.render((
 
 if (module.hot) {
   module.hot.accept('./root', () => {
+    require('./root');
     ReactDOM.render((
       <AppContainer><Root store={store} history={syncedHistory} /></AppContainer>
     ), mount);
