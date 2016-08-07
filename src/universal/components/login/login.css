@@ -4,9 +4,9 @@
 }
 
 :root {
-  --color: color(red saturation(70%) lightness(55%));;
-  --hover-color: color(red saturation(70%) lightness(65%));;
-  --disabled-color: color(red saturation(70%) lightness(80%));;
+  --color: color(red saturation(70%) lightness(55%));
+  --hover-color: color(red saturation(70%) lightness(65%));
+  --disabled-color: color(red saturation(70%) lightness(80%));
 }
 
 .login {

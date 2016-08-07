@@ -64,7 +64,7 @@ module.exports = {
     ]
   },
   postcss: function() {
-    return [cssNext, modulesValues];
+    return [modulesValues, cssNext({ features: { customProperties: false } })];
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

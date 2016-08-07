@@ -1,9 +1,7 @@
 
-:root {
-  --base-font-size: 16px;
-  --base-line-height: 1.5;
-  --base-font-family: 'helvetica neue';
-}
+@value --base-font-size: 16px;
+@value --base-line-height: 1.5;
+@value --base-font-family: 'helvetica neue';
 
 html {
   text-size-adjust: 100%;
@@ -19,7 +17,7 @@ html {
 
 body {
   margin: 0;
-  font: var(--base-font-size)/var(--base-line-height) var(--base-font-family);
+  font: --base-font-size/--base-line-height --base-font-family;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
@@ -27,7 +25,7 @@ body {
 h1, h2, h3, h4, h5, h6,
 p,
 blockquote, figure,
-ol, ul {
+ol, ul, dd {
   margin: 0;
   padding: 0;
 }
