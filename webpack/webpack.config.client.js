@@ -33,7 +33,7 @@ module.exports = {
       {
         test: /\.css$/,
         loaders: [
-          'isomorphic-style',
+          'style',
           {
             loader: 'css',
             query: {
