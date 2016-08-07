@@ -28,7 +28,7 @@ app.get('/favicon.ico', (req, res) => res.end());
 
 app.use('/graphql', proxyMiddleware('http://localhost:4001/', {
   forwardPath(req) {
-    return url.parse(req.url).path;
+    return url.parse(req.originalUrl).path;
   },
 }));
 
